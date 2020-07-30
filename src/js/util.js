@@ -1,23 +1,43 @@
 export function err (text) {
   console.error(text)
 }
-
 // 节流
-export function throttle (fn, delay = 30) {
+export function throttle (
+  fn,
+  delay = 30,
+  { leading = true, trailing = false } = {}
+) {
   let ctx
   let args
-  let previous = Date.now()
+  let timeout
+  let previous = 0
+  // leading : 第一次是否立即执行
+  // trailing : 最后一次是否需延时执行
   const later = function () {
+    previous = Date.now()
     fn.apply(ctx, args)
+    timeout = null
   }
   return function () {
     ctx = this
     args = arguments
     const now = Date.now()
-    const diff = now - previous - delay
-    if (diff >= 0) {
-      previous = now
-      setTimeout(later, delay)
+    const diff = delay - (now - previous)
+    if (diff <= 0) {
+      if (leading) {
+        if (timeout) {
+          clearTimeout(timeout)
+          timeout = null
+        }
+        later()
+      } else if (!timeout) {
+        timeout = setTimeout(later, delay)
+      }
+    }
+    if (trailing) {
+      if (!timeout) {
+        timeout = setTimeout(later, delay)
+      }
     }
   }
 }
@@ -104,16 +124,36 @@ export function digitalToUppercase (n) {
       .replace(/^整$/, '零元整')
   )
 }
-export const clone = function copy (copyObj) {
-  const type = Object.prototype.toString.call(copyObj)
-  if (~['[object Array]', '[object Object]'].indexOf(type)) {
-    const target = type === '[object Array]' ? [] : {}
-    for (const key in copyObj) {
-      target[key] = copy(copyObj[key])
+
+export function clone (target, map = new WeakMap()) {
+  const type = Object.prototype.toString.call(target)
+  if (['[object Array]', '[object Object]'].includes(type)) {
+    const isArray = type === '[object Array]'
+    const result = isArray ? [] : {}
+    if (map.has(target)) {
+      return map.get(target)
     }
-    return target
+    map.set(target, result)
+    const arrayEach = (array, iteratee) => {
+      let index = -1
+      const length = array.length
+
+      while (++index < length) {
+        if (iteratee(array[index], index, array) === false) {
+          break
+        }
+      }
+      return array
+    }
+    arrayEach(isArray ? target : Object.keys(target), (subValue, key) => {
+      if (!isArray) {
+        key = subValue
+      }
+      result[key] = clone(target[key], map)
+    })
+    return result
   }
-  return copyObj
+  return target
 }
 export function formatDate (date, format) {
   if (!date) {
