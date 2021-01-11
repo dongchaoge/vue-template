@@ -15,8 +15,3 @@ export const tradeTypeEnum = (data, cb) => {
 export const getCompanyConfig = (data, cb) => {
   return query('cmConfig/list', data, cb)
 }
-// 获取全部行情源价格
-export const getAllGoldPrice = function (data, cb) {
-  data.isBase = true
-  return query('goldPrice/getGoldPrice', data, cb, false, 'get')
-}
