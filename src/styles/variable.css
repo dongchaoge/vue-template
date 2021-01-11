@@ -1,0 +1,95 @@
+:root {
+  /* 一 色彩部分 */
+  /* 主色调 */
+  --color-primary: #1890ff;
+  /* 辅助色-golden */
+  --color-golden: rgba(217, 188, 134, 1);
+  /* 辅助色-info 提示信息 */
+  --color-info: rgba(45, 140, 240, 1);
+  /* 辅助色-success 成功信息 */
+  --color-success: rgb(25, 190, 107);
+  /* 辅助色-warning 提醒信息 */
+  --color-warning: rgba(255, 153, 0, 1);
+  /* 辅助色-error 警示信息 */
+  --color-error: rgba(255, 77, 79, 1);
+
+  /* 各状态标识底色 */
+  /* 状态-进行中 */
+  --color-state-bg-doing: rgba(230, 247, 255, 1);
+  /* 状态-成功/完成 */
+  --color-state-bg-success: rgba(237, 249, 232, 1);
+  /* 状态-提醒 */
+  --color-state-bg-retrial: rgba(255, 244, 229, 1);
+  /* 状态-失效/无效 */
+  --color-state-bg-invalid: rgba(245, 245, 245, 1);
+  /* 状态-异常警告 */
+  --color-state-bg-error: rgba(253, 235, 231, 1);
+
+  /* 边框色 */
+  --border-color: #e9e9e9;
+  /* 边框色-激活 */
+  --border-color-active: var(--color-primary);
+
+  /* 分割线 */
+  --divider-color: rgba(232, 234, 236, 1);
+
+  /* 背景色-hover */
+  --hover-color-bg: rgba(248, 248, 249, 1);
+  /* 背景色-disabled */
+  --disabled-color-bg: #f0f2f5;
+  /* 文字色-标题 */
+  --text-color-headline: rgba(0, 0, 0, 0.65);
+  /* 文字色-小标 二级标 */
+  --text-color-secondary: rgba(0, 0, 0, 0.45);
+  /* 文字色-正文 */
+  --text-color-main: rgba(0, 0, 0, 0.85);
+  /* 文字色-表单-label */
+  --text-color-label: rgba(34, 34, 34, 0.85);
+  /* 文字色-输入框-placeholder */
+  --text-color-placeholder: rgba(34, 34, 34, 0.35);
+  /* 文字色-失效 */
+  --text-color-disabled: rgba(34, 34, 34, 0.25);
+  /* 文字色-深背景-白 */
+  --text-color-white: rgba(255, 255, 255, 1);
+
+  /* 文字色-状态-进行中  */
+  --text-color-state-blue: var(--color-info);
+  /* 文字色-状态-待确认 */
+  --text-color-state-orange: var(--color-warning);
+  /* 文字色-状态-完成 */
+  --text-color-state-green: var(--color-success);
+  /* 文字色-状态-异常 */
+  --text-color-state-red: var(--color-error);
+  /* 文字色-状态-取消 失败 */
+  --text-color-state-grey: var(--text-color-secondary);
+
+  /* 图表配色 */
+  --chart-color-cyan: rgba(99, 194, 229, 1);
+  --chart-color-green: rgba(175, 228, 188, 1);
+  --chart-color-yellow: rgba(249, 220, 113, 1);
+  --chart-color-orange: rgba(241, 163, 133, 1);
+  --chart-color-blue: rgba(87, 160, 213, 1);
+  --chart-color-red: rgba(234, 122, 148, 1);
+  --chart-color-violet: rgba(224, 189, 239, 1);
+  --chart-color-purple: rgba(130, 120, 227, 1);
+
+  /* 黑色模式 */
+  /* 主色调-dark */
+  --dark-color-primary:#f7b102;
+  --dark-color-link:#1890FF;
+  --dark-btn-color-primary:linear-gradient(135deg, #FED05E 0%, #FFBE2A 100%);
+  /* 背景色-disabled-dark */
+  --dark-disabled-color-bg: #191919;
+  /* 背景色-dark */
+  --dark-color-bg: #202022;
+  /* 文字主色-dark */
+  --dark-text-color: rgba(255, 255, 255, 0.85);
+  /* 文字红-dark */
+  --dark-text-color-red: rgba(250, 79, 92, 1);
+  /* 文字主色2-dark */
+  --dark-text-color-main: rgba(255, 255, 255, 0.65);
+  --dark-text-color-sec: rgba(255, 255, 255, 0.45);
+  --dark-text-color-three: rgba(255, 255, 255, 0.25);
+  /* 边框色-dark */
+  --dark-border-color: rgba(48, 48, 52, 1);
+}

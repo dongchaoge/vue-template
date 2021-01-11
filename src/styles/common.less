@@ -1,0 +1,111 @@
+html,
+body {
+  height: 100%;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 14px;
+  }
+}
+.loop_fs(@countf )when(@countf >= 10) {
+  .fs@{countf} {
+    font-size: @countf / 16 * 1rem;
+  }
+
+  .loop_fs((@countf - 2));
+}
+
+.fs(@size) {
+  font-size: @size / 16 * 1rem;
+}
+
+.loop_padding(@n) when (@n >=0) {
+  .p@{n} {
+    padding: @n * 1px;
+  }
+  .pw@{n} {
+    padding-left: @n * 1px;
+    padding-right: @n * 1px;
+  }
+  .ph@{n} {
+    padding-top: @n * 1px;
+    padding-bottom: @n * 1px;
+  }
+  .m@{n} {
+    margin: @n * 1px;
+  }
+  .mw@{n} {
+    margin-left: @n * 1px;
+    margin-right: @n * 1px;
+  }
+  .mh@{n} {
+    margin-top: @n * 1px;
+    margin-bottom: @n * 1px;
+  }
+  //循环调用自身
+  .loop_padding((@n - 2));
+}
+.loop_mrgin(@n) when (@n >=0) {
+  .mt@{n} {
+    margin-top: @n * 1px;
+  }
+  .mr@{n} {
+    margin-right: @n * 1px;
+  }
+
+  .mb@{n} {
+    margin-bottom: @n * 1px;
+  }
+
+  .ml@{n} {
+    margin-left: @n * 1px;
+  }
+
+  .pt@{n} {
+    padding-top: @n * 1px;
+  }
+
+  .pr@{n} {
+    padding-right: @n * 1px;
+  }
+
+  .pb@{n} {
+    padding-bottom: @n * 1px;
+  }
+
+  .pl@{n} {
+    padding-left: @n * 1px;
+  }
+  //循环调用自身
+  .loop_mrgin((@n - 2));
+}
+
+body {
+  .loop_padding(72);
+  .loop_mrgin(72);
+  .loop_fs(60);
+}
+.text-c {
+  text-align: center;
+}
+
+.text-l {
+  text-align: left;
+}
+
+.text-r {
+  text-align: right;
+}
+.bg-white{
+  background:#fff;
+}
+.over-hide {
+  overflow: hidden;
+}
+
+.over-auto {
+  overflow-y: auto;
+}

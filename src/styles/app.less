@@ -1,0 +1,59 @@
+@import './variable.css';
+@import './base.less';
+@import './flex.less';
+@import './common.less';
+
+.form-wrap {
+  width: 800px;
+}
+
+.ant-form-item {
+  margin-bottom: 16px;
+}
+
+.form-title {
+  color: var(--text-color-main);
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 16px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+#app,
+.ant-modal-root {
+  // 详情展示间距-非table类型
+  .ant-descriptions-row > th,
+  .ant-descriptions-row > td {
+    padding-bottom: 8px;
+  }
+  // 数字输入框、时间选择宽度调整
+  .ant-input-number,
+  .ant-calendar-picker {
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .form-block {
+    display: flex;
+    flex-wrap: wrap;
+
+    .ant-form-item {
+      display: block;
+      box-sizing: border-box;
+      width: 29%;
+      margin-left: 6.5%;
+
+      &:nth-child(3n + 1) {
+        margin-left: 0;
+      }
+
+      .ant-form-item-control {
+        line-height: inherit;
+      }
+    }
+  }
+}

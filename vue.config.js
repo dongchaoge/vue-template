@@ -1,10 +1,10 @@
+const webpack = require('webpack')
 const path = require('path')
 // 是否为开发环境
 // 代码压缩
 const TerserPlugin = require('terser-webpack-plugin')
-// gzip压缩
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const isProd = process.env.VUE_APP_NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production'
+
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
@@ -13,74 +13,82 @@ function resolve (dir) {
 const cdn = {
   // cdn：模块名称和模块作用域命名（对应window里面挂载的变量名称）
   externals: {
-    axios: 'axios'
+    nprogress: 'NProgress'
   },
   // cdn的css链接
-  css: [],
+  css: ['https://gm-itrade-1255882558.cos.ap-guangzhou.myqcloud.com/nprogress.css'],
   // cdn的js链接
   js: [
-    'https://imgcdn2.huangjinx.com/bjh-lite/js/axios.min.js'
+    'https://gm-itrade-1255882558.cos.ap-guangzhou.myqcloud.com/nprogress.js',
+    'https://imgcdn2.huangjinx.com/public/js/jjh/echarts.common.min.js'
   ]
 }
 module.exports = {
   publicPath: './',
   indexPath: 'index.html',
+  productionSourceMap: !isProd,
   css: {
     loaderOptions: {
       less: {
-        sourceMap: true,
+        sourceMap: !isProd,
         javascriptEnabled: true
       }
     }
   },
 
   configureWebpack: config => {
+    config.plugins.push(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/))
     // 用cdn方式引入，则构建时要忽略相关资源
     config.externals = cdn.externals
     // 别名配置
     config.resolve.alias = {
       '@': resolve('src'),
       '@views': resolve('src/views'),
+      '@const': resolve('src/utils/const'),
+      '@utils': resolve('src/utils'),
+      '@util': resolve('src/utils/util'),
       '@js': resolve('src/js'),
-      '@const': resolve('src/js/const'),
-      '@util': resolve('src/js/util'),
-      '@api': resolve('src/js/api'),
-      '@config': resolve('src/js/config'),
-      '@bus': resolve('src/js/bus.js'),
-      '@style': resolve('src/style'),
+      '@api': resolve('src/api'),
+      '@config': resolve('src/utils/config'),
+      '@bus': resolve('src/utils/bus.js'),
       '@assets': resolve('src/assets'),
       '@image': resolve('src/assets/image'),
       '@components': resolve('src/components')
     }
     // 生产环境相关配置
-    if (isProd) {
+    if (!isProd) {
       // 代码压缩
       config.optimization.minimizer.push(
         new TerserPlugin({
           terserOptions: {
             ecma: undefined,
             warnings: false,
-            parse: {}
+            parse: {},
+            compress: {
+              drop_console: true,
+              drop_debugger: false,
+              pure_funcs: ['console.log'] // 移除console
+            }
           }
-        })
-      )
-
-      // gzip压缩
-      const productionGzipExtensions = ['html', 'js', 'css']
-      config.plugins.push(
-        new CompressionWebpackPlugin({
-          filename: '[path].gz[query]',
-          algorithm: 'gzip',
-          test: new RegExp(`\\.(${productionGzipExtensions.join('|')})$`),
-          threshold: 10240, // 只有大小大于该值的资源会被处理 10240
-          minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
-          deleteOriginalAssets: false // 删除原文件
         })
       )
     }
   },
 
   chainWebpack: config => {
+    // 这里需要修改音频文件打包出来的文件名 m开头的文件默认会跳到移动端(nginx配置)
+    config.module
+      .rule('media')
+      .use('url-loader')
+      .loader('url-loader')
+      .tap(options => {
+        options.fallback.options.name = 'imedia/[name].[hash:8].[ext]'
+        return options
+      })
+    // 打包可视化
+    // config
+    //   .plugin('webpack-bundle-analyzer')
+    //   .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
     // 注入cdn
     config.plugin('html').tap(args => {
       args[0].cdn = {}

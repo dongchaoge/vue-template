@@ -1,4 +1,9 @@
-# template
+# vue-template-web
+
+# 公共组件
+
+https://shimo.im/docs/tCJgPTDgCCkHhKjw
+
 
 ## Project setup
 ```
