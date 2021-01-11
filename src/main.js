@@ -58,6 +58,7 @@ new Vue({
           Cookies.set('merchantCompanyCode', this.companyCode, { expires: 30 })
           bus.$emit('initApp')
           // 去掉Loading
+          document.querySelector('.app-loading').classList.add('close')
           this.initTitle()
         })
         .catch(() => {

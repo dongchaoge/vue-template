@@ -206,7 +206,9 @@ export function formatDate (date, format) {
     return cfg[m]
   })
 }
-
+export function removeByIndex (arr, index) {
+  return arr.slice(0, index).concat(arr.slice(index + 1))
+}
 export function json2str (json) {
   if (typeof json === 'string') {
     return json
