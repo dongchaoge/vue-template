@@ -90,24 +90,5 @@ module.exports = {
       args[0].cdn = cdn
       return args
     })
-    // 删除默认配置中处理svg
-    config.module.rules.delete('svg')
-    config.module
-      .rule('svg-sprite-loader')
-      .test(/\.svg$/)
-      .include.add(resolve('src/assets/svgs')) // 处理svg目录
-      .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
-      .options({
-        symbolId: 'icon-[name]'
-      })
-    // 修改images loader 添加svg处理
-    const imagesRule = config.module.rule('images')
-    imagesRule.exclude.add(resolve('src/assets/svgs'))
-    config.module.rule('images').test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-  },
-  devServer: {
-    port: 8081
   }
 }
