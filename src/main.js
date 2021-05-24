@@ -1,13 +1,11 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import '@style/app.less'
+import App from './App'
 
 Vue.config.productionTip = false
-console.log(router)
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+
+App.mpType = 'app'
+
+const app = new Vue({
+  ...App
+})
+app.$mount()

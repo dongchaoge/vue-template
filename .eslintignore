@@ -1,0 +1,6 @@
+/src/wxcomponents
+/src/uview-ui
+/dist
+/src/**/u-*
+# 这些是为了兼容h5
+/src/utils/libs/*
